@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: attack-privpod
+spec:
+  containers:
+  - name: attack-container
+    hostPID: true
+    image: k8s.gcr.io/redis:e2e
+    imagePullPolicy: IfNotPresent
+    volumeMounts:
+      - mountPath: /chroot
+        name: host
+  volumes:
+  - name: host
+    hostPath:
+      path: /
